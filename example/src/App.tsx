@@ -1,15 +1,16 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, NativeModules } from 'react-native';
 import { multiply } from 'imin-lcd-manager';
 
 export default function App() {
   const [result, setResult] = React.useState<number | undefined>();
 
   React.useEffect(() => {
+    NativeModules?.LcdManager?.sendLCDCommand(1);
     multiply(3, 7).then(setResult);
   }, []);
-
+  console.log();
   return (
     <View style={styles.container}>
       <Text>Result: {result}</Text>
