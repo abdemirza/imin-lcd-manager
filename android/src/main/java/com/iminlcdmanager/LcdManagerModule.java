@@ -98,11 +98,11 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void sendLCDlMultiString(String text, int[] align) {
+  public void sendLCDMultiString(String[] text, int[] align) {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDlMultiString(text, align);
+    lcdManager.sendLCDlMultiString(String text, align);
   }
 
   @ReactMethod
@@ -122,7 +122,7 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void setTextSize(Size size) {
+  public void setTextSize(int size) {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
