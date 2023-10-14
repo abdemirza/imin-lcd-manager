@@ -126,6 +126,6 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDCommand(size);
+    lcdManager.setTextSize(size);
   }
 }
