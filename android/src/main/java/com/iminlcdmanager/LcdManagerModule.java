@@ -88,4 +88,44 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     );
     lcdManager.sendLCDCommand(flag);
   }
+
+  @ReactMethod
+  public void sendLCDString(String string) {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+    lcdManager.sendLCDString(string);
+  }
+
+  @ReactMethod
+  public void sendLCDlMultiString(String text, int[] align) {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+    lcdManager.sendLCDlMultiString(text, align);
+  }
+
+  @ReactMethod
+  public void sendLCDDoubleString(String topText, String bottomText) {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+    lcdManager.sendLCDDoubleString(topText, bottomText);
+  }
+
+  @ReactMethod
+  public void sendLCDBitmap(Bitmap bitmap) {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+    lcdManager.sendLCDBitmap(bitmap);
+  }
+
+  @ReactMethod
+  public void setTextSize(Size size) {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+    lcdManager.sendLCDCommand(size);
+  }
 }
