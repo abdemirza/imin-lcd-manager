@@ -102,7 +102,7 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDMultiString(text, align);
+    lcdManager.sendLCDlMultiString(text, align);
   }
 
   @ReactMethod
