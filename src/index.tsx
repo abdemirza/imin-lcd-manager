@@ -20,3 +20,28 @@ const LcdManager = NativeModules.LcdManager
 export function multiply(a: number, b: number): Promise<number> {
   return LcdManager.multiply(a, b);
 }
+
+export function sendLCDCommand(flag: number): Promise<any> {
+  return LcdManager.sendLCDCommand(flag);
+}
+
+export function sendLCDString(text: string): Promise<any> {
+  return LcdManager.sendLCDString(text);
+}
+
+export function sendLCDMultiString(text: string[], align: number[]): Promise<any> {
+  return LcdManager.sendLCDMultiString(text, align);
+}
+
+export function sendLCDDoubleString(topText: string, bottomText: string): Promise<any> {
+  return LcdManager.sendLCDDoubleString(topText, bottomText);
+}
+
+export function sendLCDBitmap(bitmap: any): Promise<any> {
+  return LcdManager.sendLCDBitmap(bitmap);
+}
+
+export function setTextSize(size: any): Promise<any> {
+  return LcdManager.setTextSize(size);
+}
+
