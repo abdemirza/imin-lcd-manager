@@ -29,11 +29,17 @@ export function sendLCDString(text: string): Promise<any> {
   return LcdManager.sendLCDString(text);
 }
 
-export function sendLCDMultiString(text: string[], align: number[]): Promise<any> {
+export function sendLCDMultiString(
+  text: string[],
+  align: number[]
+): Promise<any> {
   return LcdManager.sendLCDMultiString(text, align);
 }
 
-export function sendLCDDoubleString(topText: string, bottomText: string): Promise<any> {
+export function sendLCDDoubleString(
+  topText: string,
+  bottomText: string
+): Promise<any> {
   return LcdManager.sendLCDDoubleString(topText, bottomText);
 }
 
@@ -41,7 +47,10 @@ export function sendLCDBitmap(bitmap: any): Promise<any> {
   return LcdManager.sendLCDBitmap(bitmap);
 }
 
-export function setTextSize(size: any): Promise<any> {
+export function setTextSize(size: number): Promise<any> {
   return LcdManager.setTextSize(size);
 }
 
+export function getTextBitmap(text: string): Promise<any> {
+  return LcdManager.getTextBitmap(text);
+}

@@ -22,6 +22,8 @@ import com.facebook.react.module.annotations.ReactModule;
 import com.htt.image.FreeImageUtil;
 import com.imin.image.ILcdManager;
 import com.imin.image.ThreadUtils.SimpleTask;
+import java.io.*;
+import java.io.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,36 +38,37 @@ import java.util.List;
 public class LcdManagerModule extends ReactContextBaseJavaModule {
 
   public static final String NAME = "LcdManager";
-  Context context;
-  static ILcdManager iLcdManager;
-  TextPaint textPaint;
-  private Typeface textTypeface;
-  private boolean haveBold;
-  private int textSize;
-  private boolean haveUnderline;
-  private static int textWidth = 240;
-  private int fontSizeStyle;
-  private Alignment textAlignment;
-  private float textLineSpacing;
-  private List<Alignment> mAlignments;
-  private final byte[] bmp;
-  int sizeForFrame;
-  long startTime;
-  long endTime;
+
+  // Context context;
+  // static ILcdManager iLcdManager;
+  // TextPaint textPaint;
+  // private Typeface textTypeface;
+  // private boolean haveBold;
+  // private int textSize;
+  // private boolean haveUnderline;
+  // private static int textWidth = 240;
+  // private int fontSizeStyle;
+  // private Alignment textAlignment;
+  // private float textLineSpacing;
+  // private List<Alignment> mAlignments;
+  // private final byte[] bmp;
+  // int sizeForFrame;
+  // long startTime;
+  // long endTime;
 
   public LcdManagerModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    this.textTypeface = Typeface.DEFAULT;
-    this.textSize = 55;
-    this.fontSizeStyle = 0;
-    this.textAlignment = Alignment.ALIGN_CENTER;
-    this.textLineSpacing = 1.0F;
-    this.mAlignments = new ArrayList();
-    this.bmp = new byte[] { 66, 77, 56, 88, 2 }; // Initialize bmp here
-    this.sizeForFrame = 153600;
-    this.startTime = 0L;
-    this.endTime = 0L;
-    this.context = context;
+    //   this.textTypeface = Typeface.DEFAULT;
+    //   this.textSize = 55;
+    //   this.fontSizeStyle = 0;
+    //   this.textAlignment = Alignment.ALIGN_CENTER;
+    //   this.textLineSpacing = 1.0F;
+    //   this.mAlignments = new ArrayList();
+    //   this.bmp = new byte[] { 66, 77, 56, 88, 2 }; // Initialize bmp here
+    //   this.sizeForFrame = 153600;
+    //   this.startTime = 0L;
+    //   this.endTime = 0L;
+    //   this.context = context;
   }
 
   @Override
@@ -94,7 +97,16 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDString(string);
+    lcdManager.setTextSize(48);
+    lcdManager.sendLCDString("hello worldddd");
+  }
+
+  @ReactMethod
+  public void getTextBitmap(String text) {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+    lcdManager.getTextBitmap(text);
   }
 
   @ReactMethod
@@ -102,7 +114,8 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDlMultiString(String text, align);
+    lcdManager.setTextSize(48);
+    lcdManager.sendLCDMultiString(text, align);
   }
 
   @ReactMethod
@@ -110,7 +123,7 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDDoubleString(topText, bottomText);
+    lcdManager.sendLCDDoubleString("HELLLOO", "YOOOOO");
   }
 
   @ReactMethod
