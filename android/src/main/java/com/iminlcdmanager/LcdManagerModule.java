@@ -77,13 +77,6 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  @ReactMethod
-  public void multiply(double a, double b, Promise promise) {
-    promise.resolve(a * b * b);
-  }
-
   @ReactMethod
   public void sendLCDCommand(int flag) {
     ILcdManager lcdManager = ILcdManager.getInstance(
@@ -98,7 +91,7 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
       getReactApplicationContext()
     );
     lcdManager.setTextSize(48);
-    lcdManager.sendLCDString("hello worldddd");
+    lcdManager.sendLCDString(string);
   }
 
   @ReactMethod
@@ -123,7 +116,7 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDDoubleString("HELLLOO", "YOOOOO");
+    lcdManager.sendLCDDoubleString(topText, bottomText);
   }
 
   @ReactMethod

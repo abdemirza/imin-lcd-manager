@@ -9,7 +9,6 @@ import {
   ScrollView,
 } from 'react-native';
 import {
-  multiply,
   sendLCDCommand,
   sendLCDDoubleString,
   sendLCDString,
@@ -17,15 +16,11 @@ import {
 } from 'imin-lcd-manager';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
   const INIT = 1,
     WAKE = 2,
     HIBERNATE = 3,
     CLEAR = 4;
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-  console.log();
+
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -50,7 +45,6 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
       <ScrollView>
         <TouchableOpacity onPress={onPress}>
           <View style={styles.box}>
