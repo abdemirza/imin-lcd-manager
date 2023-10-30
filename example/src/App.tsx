@@ -1,95 +1,70 @@
 import * as React from 'react';
-
 import {
   StyleSheet,
   View,
   Text,
-  NativeModules,
   TouchableOpacity,
+  TextInput,
   ScrollView,
 } from 'react-native';
 import {
   sendLCDCommand,
   sendLCDDoubleString,
   sendLCDString,
-  setTextSize,
 } from 'imin-lcd-manager';
 
 export default function App() {
-  const INIT = 1,
-    WAKE = 2,
-    HIBERNATE = 3,
-    CLEAR = 4;
+  const [lcdText, setLcdText] = React.useState('');
+  const [lcdSecondText, setLcdSecondText] = React.useState('');
 
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  React.useEffect(() => {
+    // Replace this with your actual initialization code
+    // multiply(3, 7).then(setResult);
+  }, []);
 
-  const onPress = async () => {
-    await delay(1000);
-    sendLCDCommand(HIBERNATE);
-    await delay(1000);
-    sendLCDCommand(WAKE);
-    await delay(1000);
-    sendLCDCommand(INIT);
-    await delay(1000);
-    sendLCDCommand(CLEAR);
-    await delay(2000);
-    setTextSize(48);
-    await delay(3000);
-    sendLCDString('hello from LCD string');
-    await delay(4000);
-    sendLCDDoubleString('hello', 'world');
+  const sendFlag = (flagValue: number) => {
+    if (!isNaN(flagValue)) {
+      sendLCDCommand(parseInt(flagValue));
+    }
   };
-  const sendCommand = (command: number) => {
-    sendLCDCommand(command);
+
+  const sendLCDText = () => {
+    sendLCDString(lcdText);
   };
+
+  const sendDoubleString = () => {
+    sendLCDDoubleString(lcdText, lcdSecondText);
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <TouchableOpacity onPress={onPress}>
-          <View style={styles.box}>
-            <Text>getTextBitmapasd</Text>
+      <Text style={styles.title}>LCD Manager App</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Enter LCD String"
+        value={lcdText}
+        onChangeText={(text) => setLcdText(text)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Enter LCD String(for Double String)"
+        value={lcdSecondText}
+        onChangeText={(text) => setLcdSecondText(text)}
+      />
+      <ScrollView contentContainerStyle={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => sendFlag(lcdText)}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Flag</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setTextSize(48);
-          }}
-        >
-          <View style={styles.box}>
-            <Text>sendLCDString</Text>
+        <TouchableOpacity onPress={sendLCDText}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Send LCD String</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() =>
-            NativeModules?.LcdManager?.sendLCDMultiString(
-              ['hello', 'world'],
-              [0, 1]
-            )
-          }
-        >
-          <View style={styles.box}>
-            <Text>sendLCDMultiString</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => sendCommand(1)}>
-          <View style={styles.box}>
-            <Text>1</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => sendCommand(2)}>
-          <View style={styles.box}>
-            <Text>2</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => sendCommand(3)}>
-          <View style={styles.box}>
-            <Text>3</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => sendCommand(4)}>
-          <View style={styles.box}>
-            <Text>4</Text>
+        <TouchableOpacity onPress={sendDoubleString}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Send Double String</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
@@ -102,12 +77,42 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#f2f2f2',
   },
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: 'red',
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  input: {
+    width: '80%',
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 20,
+    paddingLeft: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+  },
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: '10%',
+  },
+  button: {
+    width: 300,
+    height: 60,
+    backgroundColor: 'blue',
+    borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
