@@ -77,6 +77,13 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
+  // Example method
+  // See https://reactnative.dev/docs/native-modules-android
+  @ReactMethod
+  public void multiply(double a, double b, Promise promise) {
+    promise.resolve(a * b * b);
+  }
+
   @ReactMethod
   public void sendLCDCommand(int flag) {
     ILcdManager lcdManager = ILcdManager.getInstance(

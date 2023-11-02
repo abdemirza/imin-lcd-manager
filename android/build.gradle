@@ -50,6 +50,7 @@ android {
     sourceSets {
       main {
         manifest.srcFile "src/main/AndroidManifestNew.xml"
+          jniLibs.srcDirs = ['libs']
       }
     }
   }
@@ -59,7 +60,9 @@ android {
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     targetSdkVersion getExtOrIntegerDefault("targetSdkVersion")
-
+    ndk {
+            abiFilters 'armeabi-v7a','arm64-v8a'
+        }
   }
 
   buildTypes {
@@ -90,5 +93,7 @@ dependencies {
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation files('libs/freeimagelibrary.jar')
+  implementation files('libs/IminLibs.jar')
+  
 }
 
