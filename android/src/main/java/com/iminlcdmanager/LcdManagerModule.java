@@ -3,6 +3,7 @@ package com.iminlcdmanager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -23,15 +24,17 @@ import com.htt.image.FreeImageUtil;
 import com.imin.image.ILcdManager;
 import com.imin.image.ThreadUtils.SimpleTask;
 import java.io.*;
-import java.io.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @ReactModule(name = LcdManagerModule.NAME)
@@ -77,8 +80,45 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
+  public Bitmap base64ToBitmap(String base64String) {
+    byte[] decodedString = Base64.getDecoder().decode(base64String);
+    Bitmap decodedByte = BitmapFactory.decodeByteArray(
+      decodedString,
+      0,
+      decodedString.length
+    );
+    return decodedByte;
+  }
+
+  public Bitmap urlToBitmap(String urlString)
+    throws MalformedURLException, IOException {
+    try {
+      URL url = new URL(urlString);
+      InputStream inputStream = url.openStream();
+      Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+      if (bitmap == null) {
+        throw new IOException("Failed to decode image from the provided URL.");
+      }
+      return bitmap;
+    } catch (MalformedURLException e) {
+      // Handle MalformedURLException
+      throw e; // or rethrow it if necessary
+    } catch (IOException e) {
+      // Handle IOException
+      throw e; // or rethrow it if necessary
+    }
+  }
+
+  public Bitmap filePathToBitmap(String filePath) throws IOException {
+    Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+    if (bitmap == null) {
+      throw new IOException(
+        "Failed to decode image from the provided file path."
+      );
+    }
+    return bitmap;
+  }
+
   @ReactMethod
   public void multiply(double a, double b, Promise promise) {
     promise.resolve(a * b * b);
@@ -127,11 +167,30 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void sendLCDBitmap(Bitmap bitmap) {
+  public void sendLCDBitmapFromFile(String filePath) throws IOException {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
-    lcdManager.sendLCDBitmap(bitmap);
+    try {
+      Bitmap bitmap = filePathToBitmap(filePath);
+      lcdManager.sendLCDBitmap(bitmap);
+    } catch (IOException e) {
+      throw new IOException("Incorrect File Path");
+    }
+  }
+
+  @ReactMethod
+  public void sendLCDBitmapFromURL(String url)throws IOException {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+    try {
+      Bitmap bitmap = urlToBitmap(url);
+      lcdManager.sendLCDBitmap(bitmap);
+    } catch (IOException e) {
+      throw new IOException("Incorrect Url");
+    }
+
   }
 
   @ReactMethod

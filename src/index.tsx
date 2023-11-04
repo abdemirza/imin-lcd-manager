@@ -43,8 +43,12 @@ export function sendLCDDoubleString(
   return LcdManager.sendLCDDoubleString(topText, bottomText);
 }
 
-export function sendLCDBitmap(bitmap: any): Promise<any> {
-  return LcdManager.sendLCDBitmap(bitmap);
+export function sendLCDBitmapFromFile(filePath: string): Promise<any> {
+  return LcdManager.sendLCDBitmapFromFile(filePath);
+}
+
+export function sendLCDBitmapFromURL(url: string): Promise<any> {
+  return LcdManager.sendLCDBitmapFromURL(url);
 }
 
 export function setTextSize(size: number): Promise<any> {
