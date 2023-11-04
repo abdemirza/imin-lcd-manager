@@ -74,4 +74,4 @@ This project is licensed under the MIT License.
 
 ## 💡 Contribution
 
-We're open to contributions! Please read our [contribution guide](CONTRIBUTING) before submitting a pull request.
+We're open to contributions! Please read our [contribution guide](CONTRIBUTING.md) before submitting a pull request.
