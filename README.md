@@ -1,7 +1,5 @@
 # LcdManagerModule
 
-![LcdManagerModule Logo](link-to-logo)
-
 LcdManagerModule is a powerful React Native module for Android that provides a variety of methods to interact with an LCD manager.
 
 ## 📦 Installation
@@ -59,12 +57,21 @@ sendLCDBitmapFromURL(url): Sends a bitmap from a URL to the LCD.
 setTextSize(size): Sets the text size.
 ```
 
+## 📝 Flags
+
+Here are the flag values that can be used with the `sendLCDCommand` method:
+
+| Flag      | Description                         |
+| --------- | ----------------------------------- |
+| INIT      | Initializes the LCD.                |
+| WAKE      | Wakes up the LCD.                   |
+| HIBERNATE | Puts the LCD into hibernation mode. |
+| CLEAR     | Clears the LCD.                     |
+
 ## 📄 License
 
 This project is licensed under the MIT License.
 
 ## 💡 Contribution
 
-We're open to contributions!
-
----
+We're open to contributions! Please read our [contribution guide](CONTRIBUTING) before submitting a pull request.
