@@ -13,7 +13,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.text.Layout.Alignment;
 import android.text.TextPaint;
-import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import com.facebook.react.bridge.Promise;
@@ -35,6 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @ReactModule(name = LcdManagerModule.NAME)
@@ -189,7 +189,7 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     );
 
     try {
-      byte[] decodedImageBytes = Base64.decode(base64String, Base64.DEFAULT);
+      byte[] decodedImageBytes = Base64.getDecoder().decode(base64String);
       Bitmap decodedBitmap = BitmapFactory.decodeByteArray(
         decodedImageBytes,
         0,

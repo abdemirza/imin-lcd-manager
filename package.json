@@ -1,6 +1,6 @@
 {
   "name": "imin-lcd-manager",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "react-native module for imin lcd",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
