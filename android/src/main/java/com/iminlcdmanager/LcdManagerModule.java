@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.text.Layout.Alignment;
 import android.text.TextPaint;
+import android.util.Base64;
 import android.util.Log;
 import androidx.annotation.NonNull;
 import com.facebook.react.bridge.Promise;
@@ -34,7 +35,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 
 @ReactModule(name = LcdManagerModule.NAME)
@@ -78,16 +78,6 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
   @NonNull
   public String getName() {
     return NAME;
-  }
-
-  public Bitmap base64ToBitmap(String base64String) {
-    byte[] decodedString = Base64.getDecoder().decode(base64String);
-    Bitmap decodedByte = BitmapFactory.decodeByteArray(
-      decodedString,
-      0,
-      decodedString.length
-    );
-    return decodedByte;
   }
 
   public Bitmap urlToBitmap(String urlString)
@@ -180,7 +170,7 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void sendLCDBitmapFromURL(String url)throws IOException {
+  public void sendLCDBitmapFromURL(String url) throws IOException {
     ILcdManager lcdManager = ILcdManager.getInstance(
       getReactApplicationContext()
     );
@@ -190,7 +180,33 @@ public class LcdManagerModule extends ReactContextBaseJavaModule {
     } catch (IOException e) {
       throw new IOException("Incorrect Url");
     }
+  }
 
+  @ReactMethod
+  public void base64ToBitmap(String base64String) {
+    ILcdManager lcdManager = ILcdManager.getInstance(
+      getReactApplicationContext()
+    );
+
+    try {
+      byte[] decodedImageBytes = Base64.decode(base64String, Base64.DEFAULT);
+      Bitmap decodedBitmap = BitmapFactory.decodeByteArray(
+        decodedImageBytes,
+        0,
+        decodedImageBytes.length
+      );
+
+      if (decodedBitmap != null) {
+        // If decoding is successful, send the Bitmap to the lcdManager.
+        lcdManager.sendLCDBitmap(decodedBitmap);
+      } else {
+        // Handle the case where decoding fails (e.g., invalid base64 string).
+        // You can log an error or take appropriate action.
+      }
+    } catch (Exception e) {
+      // Handle any exceptions that may occur during decoding.
+      e.printStackTrace();
+    }
   }
 
   @ReactMethod

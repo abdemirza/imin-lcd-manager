@@ -46,7 +46,9 @@ export function sendLCDDoubleString(
 export function sendLCDBitmapFromFile(filePath: string): Promise<any> {
   return LcdManager.sendLCDBitmapFromFile(filePath);
 }
-
+export function base64ToBitmap(base64String: string): Promise<any> {
+  return LcdManager.base64ToBitmap(base64String);
+}
 export function sendLCDBitmapFromURL(url: string): Promise<any> {
   return LcdManager.sendLCDBitmapFromURL(url);
 }
