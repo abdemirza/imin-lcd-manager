@@ -53,6 +53,10 @@ export function sendLCDBitmapFromURL(url: string): Promise<any> {
   return LcdManager.sendLCDBitmapFromURL(url);
 }
 
+export function generateQRCodeBitmap(qrCode: string): Promise<any> {
+  return LcdManager.generateQRCodeBitmap(qrCode);
+}
+
 export function setTextSize(size: number): Promise<any> {
   return LcdManager.setTextSize(size);
 }
